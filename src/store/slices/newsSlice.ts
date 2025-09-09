@@ -52,7 +52,7 @@ export const fetchNews = createAsyncThunk(
   'news/fetchNews',
   async ({ year, month }: { year: number; month: number }) => {
     const apiKey = import.meta.env.VITE_NYT_API_KEY || 'gVajdQX2lW2Qdn7LMOdBpYDYd5owBo2e'
-    const url = `/api/archive/v1/${year}/${month}.json?api-key=${apiKey}`
+    const url = `https://api.nytimes.com/svc/archive/v1/${year}/${month}.json?api-key=${apiKey}`
     
     const response = await fetch(url, {
       headers: {
@@ -74,7 +74,7 @@ export const fetchLatestNews = createAsyncThunk(
   'news/fetchLatestNews',
   async () => {
     const apiKey = import.meta.env.VITE_NYT_API_KEY || 'gVajdQX2lW2Qdn7LMOdBpYDYd5owBo2e'
-    const url = `/api/topstories/v2/home.json?api-key=${apiKey}`
+    const url = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${apiKey}`
     
     const response = await fetch(url, {
       headers: {
