@@ -16,25 +16,22 @@ const NewsList: React.FC = () => {
     dispatch(fetchLatestNews())
   }, [dispatch])
 
-  // Auto-refresh every 30 seconds - show 10 more stories
   useEffect(() => {
     const interval = setInterval(() => {
       if (displayedCount < allItems.length) {
         dispatch(showMoreNews())
       }
-    }, 30000) // 30 seconds
+    }, 30000)
 
     return () => clearInterval(interval)
   }, [dispatch, displayedCount, allItems.length])
 
-  // Track new groups when displayedCount changes
   useEffect(() => {
     if (displayedCount > prevDisplayedCount.current && prevDisplayedCount.current > 0) {
       const newItems = items.slice(prevDisplayedCount.current)
       const newGroupDates = new Set(newItems.map(news => new Date(news.pub_date).toDateString()))
       setNewGroups(newGroupDates)
       
-      // Clear animation after 1 second
       setTimeout(() => {
         setNewGroups(new Set())
       }, 1000)

@@ -9,14 +9,11 @@ interface MenuProps {
 const Menu: React.FC<MenuProps> = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
-      // Block scroll when menu is open
       document.body.style.overflow = 'hidden'
     } else {
-      // Restore scroll when menu is closed
       document.body.style.overflow = 'unset'
     }
 
-    // Cleanup function to restore scroll when component unmounts
     return () => {
       document.body.style.overflow = 'unset'
     }

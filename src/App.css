@@ -32,7 +32,6 @@ body {
   overflow-y: auto;
 }
 
-/* Mobile-first responsive design */
 @media (max-width: 768px) {
   .app {
     width: 100%;

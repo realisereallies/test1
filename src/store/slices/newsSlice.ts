@@ -47,7 +47,6 @@ const initialState: NewsState = {
   isInitialLoad: true,
 }
 
-// Async thunk for fetching news
 export const fetchNews = createAsyncThunk(
   'news/fetchNews',
   async ({ year, month }: { year: number; month: number }) => {
@@ -69,7 +68,6 @@ export const fetchNews = createAsyncThunk(
   }
 )
 
-// Async thunk for fetching latest news (Top Stories)
 export const fetchLatestNews = createAsyncThunk(
   'news/fetchLatestNews',
   async () => {
@@ -88,7 +86,6 @@ export const fetchLatestNews = createAsyncThunk(
     
     const data = await response.json()
     
-    // Convert Top Stories to NewsItem format
     const mappedStories = data.results.map((story: {
       abstract: string;
       url: string;
@@ -156,16 +153,13 @@ const newsSlice = createSlice({
         state.autoLoading = false
         state.lastFetchTime = action.payload.timestamp
         
-        // Use all stories from API response
         
         if (state.isInitialLoad) {
-          // First load: store all stories and show first 10
           state.allItems = action.payload.stories
-          state.displayedCount = 10 // Reset to 10 for first load
+          state.displayedCount = 10
           state.items = state.allItems.slice(0, state.displayedCount)
           state.isInitialLoad = false
         } else {
-          // Auto-refresh: show 10 more stories
           if (state.displayedCount < state.allItems.length) {
             state.displayedCount += 10
             state.items = state.allItems.slice(0, state.displayedCount)
